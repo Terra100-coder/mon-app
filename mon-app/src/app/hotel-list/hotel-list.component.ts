@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { IHotel } from "./hotel";
+import { HotelListService } from "./hotel-list.service";
 
 @Component({
   selector : 'app-hotel-list',
@@ -9,65 +10,10 @@ import { IHotel } from "./hotel";
 
 export class HotelListComponent implements OnInit {
 
-  ngOnInit(): void {
-    this.filteredHotels = this.hotels;
-
-    this.hotelFilter = '';
-
-  }
 
   public title = 'Liste hôtels';
 
-  public hotels: IHotel[] = [
-    {
-      hotelId : 1,
-      hotelName : 'Buea sweet life',
-      description : 'Belle vue au bord de la mer',
-      price : 230.5,
-      imageUrl: 'assets/img/hotel-room.jpg',
-      rating : 3.5
-    },
-    {
-      hotelId : 2,
-      hotelName : 'Marrakech',
-      description : 'Profitez de la vue sur les montagnes',
-      price : 145.5,
-      imageUrl: 'assets/img/the-interior.jpg',
-      rating : 5
-    },
-    {
-      hotelId : 3,
-      hotelName : 'Buea sweet life',
-      description : 'Belle vue au bord de la mer',
-      price : 230.5,
-      imageUrl: 'assets/img/indoors.jpg',
-      rating : 2
-    },
-    {
-      hotelId : 4,
-      hotelName : 'cape town city',
-      description : 'Belle vue au bord de la mer',
-      price : 230.5,
-      imageUrl: 'assets/img/window.jpg',
-      rating : 2.5
-    },
-    {
-      hotelId : 5,
-      hotelName : 'cape town city',
-      description : 'Belle vue au bord de la mer',
-      price : 230.5,
-      imageUrl: 'assets/img/hotel-terrasse.jpg',
-      rating : 3
-    },
-    {
-      hotelId : 6,
-      hotelName : 'cape town city',
-      description : 'Belle vue au bord de la mer',
-      price : 230.5,
-      imageUrl: 'assets/img/hotel-luxe.jpg',
-      rating : 5
-    }
-  ];
+  public hotels: IHotel[] = [];
 
   public showBadge: boolean = false;
 
@@ -76,6 +22,23 @@ export class HotelListComponent implements OnInit {
   public filteredHotels : IHotel[] = [];
 
   public receivedRating!: string;
+
+  public errMsg!: string;
+
+  constructor(private hotelListService: HotelListService){
+
+  }
+
+  ngOnInit(): void {
+    this.hotelListService.getHotels().subscribe({
+      next: hotels => {
+        this.hotels = hotels,
+        this.filteredHotels = this.hotels;
+      } ,
+      error: err => this.errMsg = err
+    });
+    this.hotelFilter = '';
+  }
 
   public toogleIsNewBadge(): void {
     this.showBadge = !this.showBadge;
