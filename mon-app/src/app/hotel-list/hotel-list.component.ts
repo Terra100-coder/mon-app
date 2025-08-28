@@ -5,7 +5,7 @@ import { HotelListService } from "./hotel-list.service";
 @Component({
   selector : 'app-hotel-list',
   templateUrl : './hotel-list.component.html',
-  styleUrls : ['./hotel-list.component.css']
+  styleUrls : ['./hotel-list.component.css'],
 })
 
 export class HotelListComponent implements OnInit {
