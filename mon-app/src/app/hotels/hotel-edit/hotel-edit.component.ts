@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotelListService } from '../shared/services/hotel-list.service';
 import { IHotel } from '../shared/models/hotel';
@@ -29,7 +29,8 @@ export class HotelEditComponent implements OnInit {
       hotelName: ['', Validators.required],
       price: ['', Validators.required],
       rating: [''],
-      description: ['']
+      description: [''],
+      tags: this.fb.array([])
     });
 
 
@@ -39,6 +40,19 @@ export class HotelEditComponent implements OnInit {
       this.getSelectedHotel(id);
 
     })
+  }
+
+  public get tags(): FormArray {
+    return this.hotelForm.get('tags') as FormArray;
+  }
+
+  public addTags(): void {
+    this.tags.push(new FormControl());
+  }
+
+  public deleteTags(index: number): void {
+    this.tags.removeAt(index);
+    this.tags.markAsDirty();
   }
 
   public getSelectedHotel(id: number): void {
@@ -60,7 +74,8 @@ export class HotelEditComponent implements OnInit {
       hotelName: this.hotel.hotelName,
       price: this.hotel.price,
       rating: this.hotel.rating,
-      description: this.hotel.description
+      description: this.hotel.description,
+      tags: this.fb.array([])
     });
   }
 
