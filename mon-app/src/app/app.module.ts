@@ -24,6 +24,7 @@ registerLocaleData(localFr, 'fr');
     FormsModule,
     HttpClientModule,
     HotelModule,
+    RouterModule,
     AppRoutingModule
   ],
   providers: [],
