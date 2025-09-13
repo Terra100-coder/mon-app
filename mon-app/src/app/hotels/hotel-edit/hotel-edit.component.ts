@@ -26,11 +26,10 @@ export class HotelEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.hotelForm = this.fb.group({
-      hotelName: ['', Validators.required],
-      price: ['', Validators.required],
-      rating: [''],
-      description: [''],
-      tags: this.fb.array([])
+      hotelName: ['', [Validators.required, Validators.minLength(3)]],
+      price: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
+      rating: ['', [Validators.required, Validators.min(1), Validators.max(5)]],
+      description: ['']
     });
 
 
@@ -80,26 +79,32 @@ export class HotelEditComponent implements OnInit {
   }
 
   saveHotel(): void {
-    if (this.hotelForm.valid) {
-      if (this.hotelForm.dirty) {
-        const hotel: IHotel = {
-          ...this.hotel,
-          ...this.hotelForm.value
-        };
+  if (this.hotelForm.valid) {
+    if (this.hotelForm.dirty) {
+      const hotel: IHotel = {
+        ...this.hotel,
+        ...this.hotelForm.value
+      };
 
-        if (hotel.id === 0) {
-          this.hotelService.createHotel(hotel).subscribe({
-            next: () => this.saveCompleted()
-          });
-        } else {
-          this.hotelService.updateHotel(hotel).subscribe({
-            next: () => this.saveCompleted()
-          });
-        }
+      if (hotel.id === 0) {
+        this.hotelService.createHotel(hotel).subscribe({
+          next: () => this.saveCompleted()
+        });
+      } else {
+        this.hotelService.updateHotel(hotel).subscribe({
+          next: () => this.saveCompleted()
+        });
       }
+    } else {
+      console.log('Aucune modification détectée.');
     }
-    console.log(this.hotelForm.value);
+  } else {
+    this.hotelForm.markAllAsTouched();
+    console.log('Formulaire invalide', this.hotelForm.errors);
   }
+  console.log(this.hotelForm.value);
+}
+
 
   public saveCompleted(): void {
     this.hotelForm.reset();
