@@ -1,1 +1,20 @@
-<p>home works!</p>
+<div class="container mt-5 text-center">
+
+  <!-- Hero / Welcome -->
+  <div class="hero p-5 mb-5 bg-light rounded shadow-sm">
+    <h1 class="display-4">Bienvenue à l'Hôtel</h1>
+    <p class="lead">Découvrez notre hôtel exclusif, vivez un séjour inoubliable et explorez toutes nos offres.</p>
+  </div>
+
+  <!-- Grand hôtel en avant-première -->
+  <div class="card mx-auto mb-5 shadow-lg" style="max-width: 900px;">
+    <img [src]="grandHotel.image" class="card-img-top" alt="Hôtel Paradisiaque">
+    <div class="card-body text-center">
+      <h2 class="card-title">{{ grandHotel.name }}</h2>
+      <p class="card-text">{{ grandHotel.description }}</p>
+      <p class="h5 text-info">Prix : {{ grandHotel.price }} fcfa / nuit</p>
+      <a routerLink="/hotels" class="btn btn-info btn-lg mt-3">Voir les chambres</a>
+    </div>
+  </div>
+
+</div>

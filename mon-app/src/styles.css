@@ -1,3 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~material-icons/iconfont/material-icons.css';
+
+.collapse.navbar-collapse {
+  transition: max-height 0.3s ease-out;
+  overflow: hidden;
+}
+
+.collapse.navbar-collapse.show {
+  max-height: 500px;
+}
+
+.navbar-toggler {
+  border: none;
+  outline: none;
+  transition: transform 0.3s ease;
+}
+
+.navbar-toggler.open span {
+  transform: rotate(90deg);
+}
+
+.navbar-nav .nav-item .nav-link {
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}

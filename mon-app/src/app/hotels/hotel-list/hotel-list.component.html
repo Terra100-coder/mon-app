@@ -31,7 +31,7 @@
         <h5 class="card-title">{{hotel.hotelName | titlecase}}</h5>
         <p class="card-text">{{hotel.description}}</p>
         <p class="card-text">
-          {{hotel.price | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr' | replaceComma}}
+          {{hotel.price | currency:'XOF':'symbol':'1.0-0':'fr'| replaceComma}}
         </p>
 
         <div class="d-flex justify-content-between align-items-baseline">
